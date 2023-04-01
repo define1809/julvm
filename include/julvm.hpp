@@ -38,5 +38,20 @@ constexpr word OP_CALL    = 0x001E; // call function
 constexpr word OP_RET     = 0x001F; // return from function
 constexpr word OP_INT     = 0x0020; // interrupt
 
+class VirtualMachine {
+  word *Memory;                                     // memory
+  word MemoryCapacity;                              // size oif memory
+  word IP;                                          // instruction pointer
+  word SP;                                          // stack pointer
+  word BP;                                          // base pointer
+  void interrupt(word Num);                         // programm interrupt
 
+  void operator=(const VirtualMachine &rhs);        // block assign
+  VirtualMachine(const VirtualMachine &vm);         // block copy
 
+public:
+  VirtualMachine(word _MemoryCapacity = 0xFFFF);
+  ~VirtualMachine();
+  void run();
+  void memoryDumb();
+};
